@@ -666,7 +666,7 @@
             <ul style="text-align: right; padding-right: 20px;">
                 <li>🌟 متابعة ذكية: ▪️ يومية ▪️ أسبوعية ▪️ شهرية</li>
                 <li>🗂️ تحكم كامل: ▪️ تعديل وإضافة الأسماء يدوياً</li>
-                <li>💾 أمان مطلق: النسخة الاحتياطية والاستعادة تعمل بكفاءة الآن</li>
+                <li>💾 أمان مطلق: النسخة الاحتياطية والاستعادة تعمل بكفاءة على جميع الأجهزة</li>
             </ul>
             <p>🚀 مع كل تحديث… نصنع لك تجربة أكثر إبداعًا وتميزًا.</p>
             <p>مع تحيات متجر رسم</p>
@@ -745,7 +745,8 @@
                 <button class="btn btn-warning" onclick="backupData()">📥 نسخ احتياطي</button>
                 <button class="btn btn-info" onclick="restoreData()">📤 استعادة البيانات</button>
                 <button class="btn btn-danger" onclick="clearAllData()">⚠️ مسح جميع البيانات</button>
-                <input type="file" id="restoreFile" style="display:none;" accept=".txt">
+                <!-- FIXED: Modified accept attribute for better mobile support -->
+                <input type="file" id="restoreFile" style="display:none;" accept=".txt,.json,text/plain,*/*">
             </div>
         </div>
         
