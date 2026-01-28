@@ -93,7 +93,6 @@
             gap: 20px;
         }
 
-        /* NEW: Improved button design */
         .period-btn, .gender-btn {
             padding: 15px 30px;
             border: 2px solid #2c5aa0;
@@ -117,7 +116,6 @@
             box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
         }
 
-        /* NEW: Smaller icon size */
         .period-btn img, .gender-btn img {
             width: 20px;
             height: 20px;
@@ -261,7 +259,7 @@
         .main-table th,
         .main-table td {
             border: 1px solid #ddd;
-            padding: 5px; /* Reduced padding for smaller row height */
+            padding: 5px;
             text-align: center;
             vertical-align: middle;
         }
@@ -271,21 +269,20 @@
             font-size: 10px;
             font-family: 'Cairo', sans-serif;
         }
-        /* Adjusted font sizes for daily and weekly report headers */
+        
         .daily-sub-header th, .weekly-sub-header th, .daily-sub-sub-header th, .weekly-sub-sub-header th {
             font-size: 8px !important;
         }
         .main-table .col-number { width: 20px; }
 
 
-        /* Colors for main headers (text is white) */
+        /* Colors */
         .col-number, .col-name, .col-commitment, .col-elearning, .col-growth, .col-signature,
         .col-weekly-plan, .col-weekly-eval, .col-weekly-achieve, .col-weekly-growth,
         .col-monthly-achieve, .col-monthly-develop, .col-monthly-quality {
             color: #fff;
         }
 
-        /* Colors for sub-headers (text is black) */
         .col-commitment-sub, .col-commitment-subsub,
         .col-elearning-sub, .col-elearning-subsub,
         .col-growth-sub, .col-growth-subsub,
@@ -355,11 +352,24 @@
             font-family: 'Cairo', sans-serif;
             font-size: 14px;
         }
+        
+        /* New Style for Name Input to show it's editable */
+        .main-table .name-input {
+            border: 1px solid transparent;
+            background: transparent;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .main-table .name-input:focus {
+            border: 1px solid #2c5aa0;
+            background: #fff;
+        }
 
         .main-table .small-input {
-            width: 40px; /* Further reduced width */
-            height: 25px; /* Further reduced height */
-            font-size: 10px; /* Reduced font size */
+            width: 40px; 
+            height: 25px; 
+            font-size: 10px; 
             padding: 2px;
         }
         
@@ -375,7 +385,13 @@
             background: #f8f9fa;
         }
         
-        /* --- START: UPDATED FOOTER STYLES --- */
+        /* Add Button Container */
+        .add-row-container {
+            margin-top: 15px;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        
         .footer {
             padding: 30px;
             background: #f8f9fa;
@@ -393,7 +409,6 @@
             gap: 20px;
             width: 100%;
         }
-        /* --- END: UPDATED FOOTER STYLES --- */
         
         .signature-box {
             display: flex;
@@ -564,8 +579,8 @@
             .title-section { padding: 5px !important; }
             .logo { width: 45px !important; height: auto !important; }
             
-            .day-input, .week-input, .month-select { display: none !important; } /* تم إضافة month-select هنا */
-            .month-display { display: inline-block !important; } /* لضمان ظهور النص */
+            .day-input, .week-input, .month-select { display: none !important; }
+            .month-display { display: inline-block !important; }
             
             .period-input-container {
                 font-size: 11px !important;
@@ -650,8 +665,8 @@
             <p>لقد جعلنا المتابعة أسهل، أسرع، وأكثر أمانًا من أي وقت مضى:</p>
             <ul style="text-align: right; padding-right: 20px;">
                 <li>🌟 متابعة ذكية: ▪️ يومية ▪️ أسبوعية ▪️ شهرية</li>
-                <li>🗂️ تحكم كامل: ▪️ مسح الأسماء ▪️ مسح بيانات الفترة ▪️ مسح جميع البيانات</li>
-                <li>💾 أمان مطلق: النسخة الاحتياطية والاستعادة – بياناتك في حفظٍ تام، بلا قلق بعد اليوم</li>
+                <li>🗂️ تحكم كامل: ▪️ تعديل وإضافة الأسماء يدوياً</li>
+                <li>💾 أمان مطلق: النسخة الاحتياطية والاستعادة تعمل بكفاءة على جميع الأجهزة</li>
             </ul>
             <p>🚀 مع كل تحديث… نصنع لك تجربة أكثر إبداعًا وتميزًا.</p>
             <p>مع تحيات متجر رسم</p>
@@ -730,13 +745,20 @@
                 <button class="btn btn-warning" onclick="backupData()">📥 نسخ احتياطي</button>
                 <button class="btn btn-info" onclick="restoreData()">📤 استعادة البيانات</button>
                 <button class="btn btn-danger" onclick="clearAllData()">⚠️ مسح جميع البيانات</button>
-                <input type="file" id="restoreFile" style="display:none;" accept=".txt">
+                <!-- FIXED: Modified accept attribute for better mobile support -->
+                <input type="file" id="restoreFile" style="display:none;" accept=".txt,.json,text/plain,*/*">
             </div>
         </div>
         
         <div class="table-container">
             <table class="main-table" id="main-table">
-                </table>
+            </table>
+            <!-- Added Manual Add Button -->
+            <div class="add-row-container no-print">
+                <button class="btn btn-primary" onclick="addManualRow()" style="width: 200px; font-size: 18px;">
+                    + إضافة اسم جديد
+                </button>
+            </div>
         </div>
         
         <div class="footer">
@@ -977,6 +999,13 @@
             localStorage.setItem('teacherNames', JSON.stringify(names));
         }
 
+        function saveAllNames() {
+            const names = getNamesFromTable();
+            saveNames(names);
+            // Save current period data as well
+            saveData();
+        }
+
         function getSavedNames() {
             const names = localStorage.getItem('teacherNames');
             return names ? JSON.parse(names) : [];
@@ -1019,7 +1048,7 @@
             
             const periodKey = getPeriodKey();
             if (!periodKey) {
-                console.error("No period key to save data.");
+                // If no date selected, just return (names are saved via saveAllNames)
                 return;
             }
 
@@ -1142,7 +1171,8 @@
 
         function restoreData() {
             const fileInput = document.getElementById('restoreFile');
-            fileInput.click();
+            fileInput.value = ''; // Reset to allow re-selecting same file
+            
             fileInput.onchange = (e) => {
                 const file = e.target.files[0];
                 if (!file) {
@@ -1153,6 +1183,8 @@
                     reader.onload = function(event) {
                         try {
                             const restoredData = JSON.parse(event.target.result);
+                            if (typeof restoredData !== 'object' || restoredData === null) throw new Error("Invalid file");
+                            
                             localStorage.clear();
                             for (const key in restoredData) {
                                 localStorage.setItem(key, restoredData[key]);
@@ -1167,6 +1199,7 @@
                     reader.readAsText(file);
                 }
             };
+            fileInput.click();
         }
         
         function updateInterfaceAndLoadData() {
@@ -1437,7 +1470,8 @@
             const tbody = document.getElementById('table-body');
             const row = document.createElement('tr');
             
-            let cellsHtml = `<td>${number}</td><td><input type="text" value="${name}" class="name-input" oninput="saveData('global')" readonly></td>`;
+            // Modified: Removed readonly, added onchange to save names
+            let cellsHtml = `<td>${number}</td><td><input type="text" value="${name}" class="name-input" onchange="saveAllNames()" placeholder="اكتب الاسم"></td>`;
             
             let structure;
             if (currentPeriod === 'daily') {
@@ -1465,6 +1499,14 @@
 
             row.innerHTML = cellsHtml;
             tbody.appendChild(row);
+        }
+
+        // New function to add a row manually
+        function addManualRow() {
+            const tbody = document.getElementById('table-body');
+            const currentRowsCount = tbody.querySelectorAll('tr').length;
+            addTableRow('', currentRowsCount + 1);
+            saveAllNames(); // Save the new empty row structure so it persists
         }
 
         function toggleCheck(cell) {
